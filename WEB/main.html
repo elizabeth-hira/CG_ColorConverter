@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab1</title>
+    <link rel="stylesheet" href="style.css">
+    <script src ="eel.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Гиро Елизавета Олеговна</h1>
+    <h2>3 курс 12 группа</h2>
+    <h2>2022</h2>
+
+    <div>
+    <table border="1">
+    <caption>RGB</caption>
+   <tr>
+    <th>palette</th>
+   </tr>
+   <tr>
+       <td>
+           <p>Red</p>
+       </td>
+       <td>
+           <input id="R" type="text" placeholder="input value">
+       </td>
+   </tr>
+   <tr>
+       <td>
+           <p>Green</p>
+       </td>
+       <td>
+           <input id="G" type="text" placeholder="input value">
+       </td>
+   </tr>
+   <tr>
+       <td>
+           <p>Blue</p>
+       </td>
+       <td>
+           <input id="B" type="text" placeholder="input value">
+       </td>
+   </tr>
+    </table>
+    <table border="1">
+    <caption>XYZ</caption>
+   <tr>
+    <th>palette</th>
+   </tr>
+   <tr>
+       <td>
+           <p>X</p>
+       </td>
+       <td>
+           <input id="X" type="text" placeholder="input value">
+       </td>
+   </tr>
+   <tr>
+       <td>
+           <p>Y</p>
+       </td>
+       <td>
+           <input id="Y" type="text" placeholder="input value">
+       </td>
+   </tr>
+   <tr>
+       <td>
+           <p>Z</p>
+       </td>
+       <td>
+           <input id="Z" type="text" placeholder="input value">
+       </td>
+   </tr>
+    </table>
+    <table border="1">
+    <caption>HSV</caption>
+   <tr>
+    <th>palette</th>
+   </tr>
+   <tr>
+       <td>
+           <p>Hue(0-360)</p>
+       </td>
+       <td>
+           <input id="H" type="text" placeholder="input value">
+       </td>
+   </tr>
+   <tr>
+       <td>
+           <p>Saturation(0-1)</p>
+       </td>
+       <td>
+           <input id="S" type="text" placeholder="input value">
+       </td>
+   </tr>
+   <tr>
+       <td>
+           <p>Value(0-1)</p>
+       </td>
+       <td>
+           <input id="V" type="text" placeholder="input value">
+       </td>
+   </tr>
+    </table>
+    </div>
+
+    <div class="palette">
+        <input type="color" id="picker" name="head" value="#e66465">
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        async function rgb_to_xyz() {
+            let r=document.getElementById('R').value;
+            let g=document.getElementById('G').value;
+            let b=document.getElementById('B').value;
+
+            let res = await eel.rgb_to_xyz(r, g, b)();
+            console.log(res)
+            document.getElementById('X').value = res[0];
+            document.getElementById('Y').value = res[1];
+            document.getElementById('Z').value = res[2];
+        }
+        async function rgb_to_hsv() {
+            let r=document.getElementById('R').value;
+            let g=document.getElementById('G').value;
+            let b=document.getElementById('B').value;
+
+            let res = await eel.rgb_to_hsv(r, g, b)();
+            console.log(res)
+            document.getElementById('H').value = res[0];
+            document.getElementById('S').value = res[1];
+            document.getElementById('V').value = res[2];
+        }
+
+        async function xyz_to_rgb() {
+            let x=document.getElementById('X').value;
+            let y=document.getElementById('Y').value;
+            let z=document.getElementById('Z').value;
+
+            let res = await eel.xyz_to_rgb(x, y, z)();
+            console.log(res)
+            document.getElementById('R').value = res[0];
+            document.getElementById('G').value = res[1];
+            document.getElementById('B').value = res[2];
+        }
+        async function xyz_to_hsv() {
+            let x=document.getElementById('X').value;
+            let y=document.getElementById('Y').value;
+            let z=document.getElementById('Z').value;
+
+            let res = await eel.xyz_to_hsv(x, y, z)();
+            console.log(res)
+            document.getElementById('H').value = res[0];
+            document.getElementById('S').value = res[1];
+            document.getElementById('V').value = res[2];
+        }
+
+        async function hsv_to_rgb() {
+            let x=document.getElementById('H').value;
+            let y=document.getElementById('S').value;
+            let z=document.getElementById('V').value;
+
+            let res = await eel.hsv_to_rgb(x, y, z)();
+            console.log(res)
+            document.getElementById('R').value = res[0];
+            document.getElementById('G').value = res[1];
+            document.getElementById('B').value = res[2];
+        }
+        async function hsv_to_xyz() {
+            let x=document.getElementById('H').value;
+            let y=document.getElementById('S').value;
+            let z=document.getElementById('V').value;
+
+            let res = await eel.hsv_to_xyz(x, y, z)();
+            console.log(res)
+            document.getElementById('X').value = res[0];
+            document.getElementById('Y').value = res[1];
+            document.getElementById('Z').value = res[2];
+        }
+
+        async function picker_to_palette() {
+            let hex = document.getElementById('picker').value
+            console.log(hex)
+            let res = await eel.hex_to_palette(hex)();
+            console.log(res)
+
+            document.getElementById('R').value = res[0][0];
+            document.getElementById('G').value = res[0][1];
+            document.getElementById('B').value = res[0][2];
+
+            document.getElementById('X').value = res[1][0];
+            document.getElementById('Y').value = res[1][1];
+            document.getElementById('Z').value = res[1][2];
+
+            document.getElementById('H').value = res[2][0];
+            document.getElementById('S').value = res[2][1];
+            document.getElementById('V').value = res[2][2];
+
+        }
+
+
+
+
+        jQuery('#R').on('change', function() {
+            rgb_to_xyz();
+            rgb_to_hsv();
+        });
+        jQuery('#G').on('change', function() {
+            rgb_to_xyz();
+            rgb_to_hsv();
+        });
+        jQuery('#B').on('change', function() {
+            rgb_to_xyz();
+            rgb_to_hsv();
+        });
+
+        jQuery('#X').on('change', function() {
+            xyz_to_rgb();
+            xyz_to_hsv();
+        });
+        jQuery('#Y').on('change', function() {
+            xyz_to_rgb();
+            xyz_to_hsv();
+        });
+        jQuery('#Z').on('change', function() {
+            xyz_to_rgb();
+            xyz_to_hsv();
+        });
+
+        jQuery('#H').on('change', function() {
+            hsv_to_rgb();
+            hsv_to_xyz();
+        });
+        jQuery('#S').on('change', function() {
+            hsv_to_rgb();
+            hsv_to_xyz();
+        });
+        jQuery('#V').on('change', function() {
+            hsv_to_rgb();
+            hsv_to_xyz();
+        });
+
+        jQuery('#picker').on('change', function() {
+            picker_to_palette();
+        });
+
+
+    </script>
+</body>
+</html>
